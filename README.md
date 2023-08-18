@@ -3,7 +3,7 @@
 
 A login and registration system using Express.js and React.js with JWT for authentication 
 
-## Frameworks & Library
+## Framework & Library
 
 - Express.js
 - React.js
