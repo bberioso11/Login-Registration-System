@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { UserDataContext } from "../context/UserDataContext";
-
+import { useSelector } from "react-redux";
 const Register = () => {
-  const { userData } = useContext(UserDataContext);
+  // const { userData } = useContext(UserDataContext);
+  const userData = useSelector((state) => state.userdata.data);
   const navigate = useNavigate();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -59,7 +60,7 @@ const Register = () => {
       icon: "success",
       title: "Success!",
       text: "Register Succesfully!",
-    }).then(() => navigate("/"));
+    }).then(() => navigate("/login"));
   };
   return (
     <>

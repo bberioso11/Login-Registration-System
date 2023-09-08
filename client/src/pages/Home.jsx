@@ -3,12 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaHandsClapping } from "react-icons/fa6";
 import { UserDataContext } from "../context/UserDataContext";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogout } from "../store/userdataSlice";
 const Home = () => {
-  const { userData, logout } = useContext(UserDataContext);
-
+  //const { userData, logout } = useContext(UserDataContext);
+  const userData = useSelector((state) => state.userdata.data);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleLogout = () => {
     axios.delete("/api/authenticate/logout").then(() => {
-      logout();
+      navigate("/login");
+      dispatch(setLogout());
     });
   };
   return (

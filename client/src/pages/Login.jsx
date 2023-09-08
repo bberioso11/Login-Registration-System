@@ -2,16 +2,23 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { UserDataContext } from "../context/UserDataContext";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserData, setUserData } from "../store/userdataSlice";
 
 import axios from "axios";
 const Login = () => {
-  const { userData, handleValidateToken } = useContext(UserDataContext);
+  //const { userData, handleValidateToken } = useContext(UserDataContext);
+  const userData = useSelector((state) => state.userdata.data);
+  console.log(userData);
+
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (userData) {
@@ -48,7 +55,9 @@ const Login = () => {
       title: "Success!",
       text: "Login Successfully!",
     }).then(() => {
-      handleValidateToken();
+      getUserData().then((userData) => {
+        dispatch(setUserData(userData));
+      });
       navigate("/");
     });
   };
